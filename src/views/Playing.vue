@@ -1,6 +1,6 @@
 <template>
   <div class="container  white--text mt-8">
-    <h1 class="text-center   mb-10">Popular Movies</h1>
+    <h1 class="text-center   mb-10">Now Playing Movies</h1>
     <div class="d-flex flex-wrap justify-center">
       <movie-card
         v-for="movie in movies"
@@ -67,7 +67,7 @@ export default {
       this.loading = true
       axios
         .get(
-          `https://api.themoviedb.org/3/trending/movie/day?api_key=${key}&page=${this.page}`
+          `https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&page=${this.page}`
         )
         .then((response) => {
           // console.log(response)

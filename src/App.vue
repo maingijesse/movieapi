@@ -7,7 +7,7 @@
       v-model="drawer"
       mobile-breakpoint="900"
     >
-      <v-list-item class="primary" dark>
+      <v-list-item class="primary" dark link to="/">
         <v-list-item-content>
           <v-list-item-title class="text-h6 text-center py-1 py-md-2 ">
             <span><v-icon dense>mdi-movie</v-icon> MovieApi</span>
@@ -18,7 +18,13 @@
       <v-divider></v-divider>
 
       <v-list nav class="mt-12">
-        <v-list-item v-for="item in items" :key="item.title" link>
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          link
+          :to="item.to"
+          exact-active-class="primary"
+        >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -37,7 +43,7 @@
             <v-form class="mt-6 custom-width">
               <v-text-field
                 label="Search Movies ..."
-                prepend-icon="mdi-magnify"
+                append-icon="mdi-magnify"
                 single-line
               >
               </v-text-field>
@@ -63,17 +69,14 @@
 
 <script>
 export default {
-  mounted() {
-    console.log(process.env.VUE_APP_KEY)
-    console.log(process.env.NODE_ENV)
-  },
+  mounted() {},
   data() {
     return {
       items: [
-        { title: "Popular", icon: "mdi-movie-star" },
-        { title: "Now Playing", icon: "mdi-animation-play" },
-        { title: "Upcoming", icon: "mdi-movie-open-edit" },
-        { title: "Top Rated", icon: "mdi-movie-filter" },
+        { title: "Popular", icon: "mdi-movie-star", to: "/" },
+        { title: "Now Playing", icon: "mdi-animation-play", to: "/playing" },
+        { title: "Upcoming", icon: "mdi-movie-open-edit", to: "/upcoming" },
+        { title: "Top Rated", icon: "mdi-movie-filter", to: "/top" },
       ],
       drawer: false,
     }
@@ -82,7 +85,7 @@ export default {
 </script>
 
 <style lang="scss">
-.v-application--is-ltr .v-input__prepend-outer {
+.v-input__icon {
   cursor: pointer;
 }
 
