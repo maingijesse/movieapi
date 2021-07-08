@@ -65,6 +65,8 @@ export default {
   methods: {
     getMovies() {
       this.loading = true
+      this.movies = []
+
       axios
         .get(
           `https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&page=${this.page}`
