@@ -6,16 +6,20 @@
       dark
       color="accent"
       link
-      elevation="0"
+      elevation="16"
     >
       <v-img
-        elevation="2"
         height="450"
         :src="`https://image.tmdb.org/t/p/w342/${movie.poster_path}`"
       >
       </v-img>
       <div class="subtitle-1 white--text pt-4 pl-4">
         {{ movie.original_title }}
+      </div>
+      <div class="pl-4 pt-2 pb-0">
+        <v-chip pill color="warning">
+          {{ movie.release_date }}
+        </v-chip>
       </div>
 
       <v-avatar class="white--text absolute warning  pa-6" size="56">
