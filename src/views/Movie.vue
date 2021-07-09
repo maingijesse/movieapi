@@ -26,7 +26,7 @@
               </h1>
               <div class=" my-3 ">
                 <v-chip
-                  class="mr-4 subtitle-1"
+                  class="mr-4 subtitle-1 mb-2"
                   color="primary"
                   v-for="genre in movie.genres"
                   :key="genre.id"
