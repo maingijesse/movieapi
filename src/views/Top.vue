@@ -72,10 +72,10 @@ export default {
           `https://api.themoviedb.org/3/movie/top_rated?api_key=${key}&page=${this.page}`
         )
         .then((response) => {
-          // console.log(response)
+          console.log(response)
           this.loading = false
+
           this.movies = response.data.results
-          // this.loading = !this.loading
         })
         .catch((err) => {
           console.log("Some error occured")

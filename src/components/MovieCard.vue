@@ -7,6 +7,7 @@
       color="accent"
       link
       elevation="16"
+      :to="`/movie/${movie.id}`"
     >
       <v-img
         height="450"

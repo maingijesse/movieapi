@@ -4,6 +4,7 @@ import Home from "../views/Home.vue"
 import Playing from "../views/Playing"
 import Upcoming from "../views/Upcoming"
 import Top from "../views/Top"
+import Movie from "../views/Movie"
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: "/top",
     name: "Top Rated",
     component: Top,
+  },
+  {
+    path: "/movie/:id",
+    name: "Movie",
+    component: Movie,
   },
   {
     path: "/about",
