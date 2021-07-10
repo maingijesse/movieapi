@@ -169,7 +169,7 @@ export default {
         .then((response) => {
           console.log(response)
 
-          this.similarMovies = response.data.results
+          this.similarMovies = response.data.results.slice(0, 6)
           // this.loading = !this.loading
         })
         .catch((err) => {
