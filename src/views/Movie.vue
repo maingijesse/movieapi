@@ -2,13 +2,12 @@
   <div>
     <div
       v-if="ready"
-      class="intro d-flex  align-center"
       :style="{
         background: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(248, 55, 69, 0.6)),url(https://image.tmdb.org/t/p/original/${movie.backdrop_path}) no-repeat fixed center center / cover`,
       }"
     >
       <v-container>
-        <v-row class="mx-md-10 align-center">
+        <v-row class="mx-md-10 align-center intro py-12">
           <v-col cols="12" md="3">
             <v-card max-width="320" elevation="24" class="mx-auto">
               <v-img
@@ -60,20 +59,78 @@
           </v-col>
         </v-row>
       </v-container>
+
+      <!-- cast -->
+      <h1 class="white--text text-md-center text-md-h3 ml-4 mb-4">Cast</h1>
+      <v-sheet class="mx-5 mx-md-auto transparent " max-width="1600" dark>
+        <v-slide-group multiple show-arrows center-active>
+          <v-slide-item v-for="actor in credits" :key="actor.id" class="mr-4 ">
+            <v-card class="transparent" width="120" flat hover>
+              <img
+                v-if="actor.profile_path"
+                :src="
+                  `https://image.tmdb.org/t/p/original/${actor.profile_path}`
+                "
+                alt="actor image"
+                width="120"
+                class="mb-2"
+              />
+              <img
+                v-else
+                src="./../assets/profile-placeholder.png"
+                alt="actor image"
+                width="120"
+                class="mb-2"
+              />
+              <p class="caption text-center px-2 my-0 text-uppercase">
+                {{ actor.original_name }}
+              </p>
+              <p class="caption font-italic text-center px-2 my-0 mb-2 ">
+                {{ actor.character }}
+              </p>
+            </v-card>
+          </v-slide-item>
+        </v-slide-group>
+      </v-sheet>
+      <!-- end of cast -->
+      <!-- end of cast -->
+      <!-- similar movies -->
+      <div
+        class="container  white--text mt-8 glassmorphic "
+        v-if="similarMovies.length > 1"
+      >
+        <h1 class="text-center   mb-10">Similar Movies</h1>
+        <div class="d-flex flex-wrap justify-center ">
+          <similar-movie
+            :movie="movie"
+            v-for="movie in similarMovies"
+            :key="movie.id"
+          ></similar-movie>
+        </div>
+      </div>
+
+      <!-- end of similar movies -->
     </div>
   </div>
 </template>
 
 <script>
 const key = process.env.VUE_APP_KEY
+import SimilarMovie from "./../components/SimilarMovie"
 
 import axios from "axios"
+
 export default {
+  components: {
+    SimilarMovie,
+  },
   data() {
     return {
       //   path: "",
       movie: [],
       ready: false,
+      similarMovies: [],
+      credits: [],
     }
   },
   mounted() {
@@ -84,9 +141,9 @@ export default {
         `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${key}`
       )
       .then((response) => {
-        console.log(response)
         this.ready = true
-
+        this.fetchSimilar()
+        this.fetchCast()
         this.movie = response.data
         // this.loading = !this.loading
       })
@@ -104,13 +161,43 @@ export default {
     hasHistory() {
       return window.history.length > 2
     },
+    fetchSimilar() {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/movie/${this.$route.params.id}/similar?api_key=${key}`
+        )
+        .then((response) => {
+          console.log(response)
+
+          this.similarMovies = response.data.results
+          // this.loading = !this.loading
+        })
+        .catch((err) => {
+          console.log("Some error occured")
+        })
+    },
+    fetchCast() {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/movie/${this.$route.params.id}/credits?api_key=${key}`
+        )
+        .then((response) => {
+          console.log(response)
+
+          this.credits = response.data.cast
+          // this.loading = !this.loading
+        })
+        .catch((err) => {
+          console.log("Some error occured")
+        })
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .intro {
-  min-height: 100vh;
+  min-height: 75vh;
 }
 .glassmorphic {
   background: rgba(248, 55, 69, 0.25);

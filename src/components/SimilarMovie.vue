@@ -1,26 +1,22 @@
 <template>
   <div>
     <v-card
-      max-width="320"
-      class="mr-4 mr-md-8 mb-4 mb-md-8 relative"
+      max-width="180"
+      class="mr-4 mr-md-8 mb-4 mb-md-8 relative "
+      link
       dark
       color="accent"
-      link
       elevation="16"
-      :to="`/movie/${movie.id}`"
+      exact-path
+      :href="`/movie/${movie.id}`"
     >
       <v-img
-        height="450"
+        height="290"
         :src="`https://image.tmdb.org/t/p/w342/${movie.poster_path}`"
       >
       </v-img>
-      <div class="subtitle-1 white--text pt-4 pl-4">
+      <div class="subtitle-1 warning--text pt-4 pl-4">
         {{ movie.original_title }}
-      </div>
-      <div class="pl-4 pt-2 pb-0">
-        <v-chip pill color="warning">
-          {{ movie.release_date }}
-        </v-chip>
       </div>
 
       <v-avatar class="white--text absolute warning  pa-6" size="56">
@@ -37,6 +33,7 @@ export default {
   data() {
     return {}
   },
+  methods: {},
 }
 </script>
 
